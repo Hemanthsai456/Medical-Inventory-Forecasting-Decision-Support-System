@@ -3,7 +3,7 @@ __pycache__/
 *.py[codz]
 *.pyc
 *$py.class
-
+desktop.ini
 # C extensions
 *.so
 

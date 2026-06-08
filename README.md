@@ -1,10 +1,22 @@
 # 💊 Medical Inventory Sales Prediction & Segmentation
 
+## 🚀 Live Demo
+
+🔗 Streamlit Application:
+
+https://hemanthsai-medical-sales-inventory-prediction.streamlit.app/
+
+🔗 GitHub Repository:
+
+https://github.com/Hemanthsai456/Medical-Inventory-Sales-Prediction
+
+---
+
 ## 📌 Project Overview
 
 Medical inventory management is a critical business function that directly impacts product availability, operational efficiency, and profitability. Poor inventory planning can lead to overstocking, increased holding costs, product expiration, and lost sales opportunities.
 
-This project leverages Machine Learning and Data Analytics techniques to predict medical inventory sales and identify inventory patterns that support better business decision-making.
+This project leverages Machine Learning and Data Analytics techniques to predict medical inventory sales and identify inventory patterns that support data-driven business decision-making.
 
 The project combines:
 
@@ -14,6 +26,15 @@ The project combines:
 * Explainable AI (SHAP)
 * K-Means Inventory Segmentation
 * Interactive Streamlit Dashboard
+
+---
+
+### Home Page 
+
+<p align="center">
+  <img src="images\home_page.png" width="900">
+</p>
+
 
 ---
 
@@ -73,7 +94,7 @@ The repository contains the complete analysis workflow, machine learning models,
 
 ### Deployment
 
-* Streamlit
+* Streamlit Community Cloud
 
 ### Version Control
 
@@ -105,7 +126,7 @@ SHAP Explainability
         ↓
 K-Means Clustering
         ↓
-Streamlit Dashboard
+Streamlit Deployment
 ```
 
 ---
@@ -183,6 +204,26 @@ A total of **14 models** were evaluated and compared.
 
 ---
 
+## Model Comparison Dashboard
+
+<p align="center">
+  <img src="images\model_comparison1.png" width="100%">
+</p>
+
+<p align="center">
+  <img src="images\model_comparison2.png" width="100%">
+</p>
+
+<p align="center">
+  <img src="images\model_comparison3.png" width="100%">
+</p>
+
+<p align="center">
+  <img src="images\model_comparison4.png" width="100%">
+</p>
+
+---
+
 ## 📌 Feature Importance Analysis
 
 Feature importance analysis was performed using the final tuned Gradient Boosting model.
@@ -214,6 +255,21 @@ SHAP (SHapley Additive exPlanations) was used to interpret model behavior and in
 * Individual prediction explanations
 * Improved model interpretability
 * Increased stakeholder trust
+
+---
+
+## Explainable AI (SHAP) Page
+
+
+<p align="center">
+  <img src="images\shap_page1.png" width="100%">
+</p>
+
+
+<p align="center">
+  <img src="images\shap_page2.png" width="100%">
+</p>
+
 
 ---
 
@@ -249,6 +305,22 @@ K-Means Clustering was applied to segment products based on inventory characteri
 * Demand Forecasting
 * Stock Planning
 * Resource Allocation
+
+---
+
+## Inventory Segmentation page
+
+<p align="center">
+  <img src="images\inventory_segmentation1.png" width="100%">
+</p>
+
+<p align="center">
+  <img src="images\inventory_segmentation2.png" width="100%">
+</p>
+
+<p align="center">
+  <img src="images\inventory_segmentation3.png" width="100%">
+</p>
 
 ---
 
@@ -294,7 +366,7 @@ git clone https://github.com/Hemanthsai456/Medical-Inventory-Sales-Prediction.gi
 cd Medical-Inventory-Sales-Prediction
 ```
 
-### 2️⃣ Create a Virtual Environment (Recommended)
+### 2️⃣ Create a Virtual Environment
 
 #### Windows
 
@@ -316,15 +388,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Run the Streamlit Application
+### 4️⃣ Run the Application
 
 ```bash
 streamlit run app.py
 ```
 
 ### 5️⃣ Open in Browser
-
-If the application does not automatically open, navigate to:
 
 ```text
 http://localhost:8501
@@ -359,7 +429,7 @@ notebooks/
 
 Execute the notebook sequentially.
 
-> **Note:** The original dataset is not included due to confidentiality requirements.
+> Note: The original dataset is not included due to confidentiality requirements.
 
 ---
 
@@ -371,6 +441,7 @@ To respect confidentiality agreements and business privacy requirements, the raw
 
 All visualizations, trained models, and analysis outputs have been shared without exposing sensitive business information.
 
+---
 
 ## 👨‍💻 Author
 
@@ -380,9 +451,13 @@ Artificial Intelligence & Data Science Student
 
 📧 Email: [hemanthsai.ch456@gmail.com](mailto:hemanthsai.ch456@gmail.com)
 
-🔗 LinkedIn: https://www.linkedin.com/in/hemanth-sai-charagundla-4a8659376/
+🔗 LinkedIn:
 
-💻 GitHub: https://github.com/Hemanthsai456
+https://www.linkedin.com/in/hemanth-sai-charagundla-4a8659376/
+
+💻 GitHub:
+
+https://github.com/Hemanthsai456
 
 ---
 
@@ -395,4 +470,8 @@ Artificial Intelligence & Data Science Student
 * SHAP Explainability
 * K-Means Segmentation
 * Business Insight Generation
-* Streamlit Deployment Ready
+* Interactive Streamlit Dashboard
+* Streamlit Application Deployed
+* Real-World Business Use Case
+* Confidential Dataset Handling
+* Portfolio-Ready Deployment
