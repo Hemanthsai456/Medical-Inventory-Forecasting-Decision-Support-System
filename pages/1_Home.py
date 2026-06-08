@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("💊 Medical Inventory Sales Prediction")
+st.title("💊 Medical Inventory Sales Prediction & Segmentation")
 
 st.markdown("""
 ### Project Overview
