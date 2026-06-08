@@ -9,7 +9,7 @@ st.title("👨‍💻 About This Project")
 st.header("💊 Project Overview")
 
 st.markdown("""
-**Medical Inventory Sales Prediction** is an end-to-end Machine Learning project developed to forecast medical inventory sales using historical inventory and purchase data.
+**Medical Inventory Sales Prediction & Segmentation** is an end-to-end Machine Learning project developed to forecast medical inventory sales using historical inventory and purchase data.
 
 The project combines data analysis, predictive modeling, explainable AI, clustering techniques, and deployment into a complete business-focused solution.
 
