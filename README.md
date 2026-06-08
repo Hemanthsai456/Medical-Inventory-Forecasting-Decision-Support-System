@@ -475,3 +475,16 @@ https://github.com/Hemanthsai456
 * Real-World Business Use Case
 * Confidential Dataset Handling
 * Portfolio-Ready Deployment
+
+---
+
+## 🔮 Future Enhancements
+
+- Interactive Plotly Dashboards for advanced data visualization.
+- Prediction History Tracking using SQLite or PostgreSQL.
+- FastAPI backend for serving model predictions as REST APIs.
+- Docker containerization for simplified deployment.
+- Automated PDF report generation for inventory insights.
+- Cloud deployment using AWS, GCP, or Azure.
+- User authentication and role-based access control.
+- Model monitoring for tracking prediction performance over time.
