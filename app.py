@@ -1,12 +1,12 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Medical Inventory Sales Prediction",
+    page_title="Medical Inventory Sales Prediction & Segmentation",
     page_icon="💊",
     layout="wide"
 )
 
-st.title("💊 Medical Inventory Sales Prediction")
+st.title("💊 Medical Inventory Sales Prediction & Segmentation")
 
 st.markdown("""
 ### End-to-End Machine Learning Project
