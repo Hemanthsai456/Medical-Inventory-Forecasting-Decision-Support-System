@@ -12,6 +12,23 @@ st.info(
 )
 
 # ======================
+# Input Definitions
+# ======================
+
+with st.expander("ℹ️ What do these inputs mean?"):
+    st.markdown("""
+    **Packing** → Number of units contained in one package (e.g., 10 tablets per strip or 200 ml per bottle).
+
+    **Opening Stock** → Inventory available before any new purchases are made.
+
+    **Purchased Quantity** → Additional inventory purchased during the period.
+
+    **Current Inventory Value** → Monetary value of inventory currently available in stock.
+
+    **Product Type** → Unit/category used to measure the medical inventory item (ml, tablet, sachet, vial, etc.).
+    """)
+
+# ======================
 # Example Values Button
 # ======================
 
@@ -38,37 +55,39 @@ with st.container(border=True):
     col1, col2 = st.columns(2)
 
     with col1:
+
         packing = st.number_input(
-            "Packing",
+            "Packing (Units per Package)",
             min_value=0.0,
             value=st.session_state.packing,
             placeholder="Enter Packing",
-            help="Packaging quantity of the product"
+            help="Number of units contained in one package."
         )
 
         ostk = st.number_input(
-            "Opening Stock (OStk)",
+            "Opening Stock (Starting Inventory)",
             min_value=0.0,
             value=st.session_state.ostk,
             placeholder="Enter Opening Stock",
-            help="Inventory available at the beginning of the period"
+            help="Inventory available before new purchases are made."
         )
 
     with col2:
+
         purtot = st.number_input(
-            "Purchase Total (PurTot)",
+            "Purchased Quantity",
             min_value=0.0,
             value=st.session_state.purtot,
-            placeholder="Enter Purchase Total",
-            help="Total purchase value of inventory"
+            placeholder="Enter Purchased Quantity",
+            help="Additional inventory purchased during the period."
         )
 
         qohvalue = st.number_input(
-            "Quantity on Hand Value (QohValue)",
+            "Current Inventory Value",
             min_value=0.0,
             value=st.session_state.qohvalue,
-            placeholder="Enter Quantity on Hand Value",
-            help="Current inventory value available in stock"
+            placeholder="Enter Current Inventory Value",
+            help="Monetary value of inventory currently available in stock."
         )
 
     product_type = st.selectbox(
@@ -97,7 +116,7 @@ with st.container(border=True):
             "vial",
             "x"
         ].index(st.session_state.product_type),
-        help="Select the product category"
+        help="Select the product category."
     )
 
     predict_btn = st.button(
@@ -113,17 +132,17 @@ if predict_btn:
 
     if None in [packing, ostk, purtot, qohvalue]:
         st.warning("⚠️ Please fill all numeric fields.")
+
     else:
 
-        # Input Summary
         st.markdown("### 📋 Input Summary")
 
         col1, col2, col3, col4, col5 = st.columns(5)
 
         col1.metric("Packing", f"{packing:,.0f}")
         col2.metric("Opening Stock", f"{ostk:,.0f}")
-        col3.metric("Purchase Total", f"{purtot:,.0f}")
-        col4.metric("QOH Value", f"{qohvalue:,.0f}")
+        col3.metric("Purchased Quantity", f"{purtot:,.0f}")
+        col4.metric("Inventory Value", f"{qohvalue:,.0f}")
         col5.metric("Product Type", product_type)
 
         prediction = predict_sales(
@@ -136,32 +155,60 @@ if predict_btn:
 
         st.markdown("---")
 
-        st.markdown("## 💰 Prediction Result")
+        st.markdown("## 📈 Prediction Result")
 
-        st.metric(
-            label="Predicted Sales Value",
-            value=f"{prediction:,.2f}"
+        st.markdown(
+            f"""
+            <div style="
+                background-color:#1E4620;
+                padding:20px;
+                border-radius:10px;
+                text-align:center;
+                font-size:32px;
+                font-weight:bold;
+                color:white;
+            ">
+                 Predicted Units Sold: {round(prediction):,}
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
-        # Business Interpretation
+        # ======================
+        # Inventory Turnover Interpretation
+        # ======================
 
-        if prediction > 5000:
-            st.success(
-                "📈 High expected sales volume. "
-                "Ensure adequate inventory availability."
-            )
+        total_inventory = ostk + purtot
 
-        elif prediction > 1000:
+        if total_inventory > 0:
+
+            turnover_ratio = prediction / total_inventory
+
+            st.markdown("### 📊 Inventory Turnover Insight")
+
+            st.progress(min(turnover_ratio, 1.0))
+
             st.info(
-                "📊 Moderate expected sales volume. "
-                "Maintain balanced inventory levels."
+                f"Predicted Inventory Turnover: {turnover_ratio:.1%}"
             )
 
-        else:
-            st.warning(
-                "📉 Low expected sales volume. "
-                "Monitor stock levels to avoid overstocking."
-            )
+            if turnover_ratio >= 0.60:
+
+                st.success(
+                    "📈 High expected inventory turnover. A large portion of available inventory is expected to be sold."
+                )
+
+            elif turnover_ratio >= 0.40:
+
+                st.warning(
+                    "📊 Moderate expected inventory turnover. Inventory movement appears balanced."
+                )
+
+            else:
+
+                st.error(
+                    "📉 Low expected inventory turnover. Monitor inventory levels to avoid overstocking."
+                )
 
         st.caption(
             "Prediction generated using the trained Gradient Boosting Regressor model."
