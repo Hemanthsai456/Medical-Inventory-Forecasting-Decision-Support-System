@@ -1,9 +1,6 @@
 import joblib
 import pandas as pd
-
-# Load model and columns once
 import streamlit as st
-import joblib
 
 @st.cache_resource
 def load_model():
