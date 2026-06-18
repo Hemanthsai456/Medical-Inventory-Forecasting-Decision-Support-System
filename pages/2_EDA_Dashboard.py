@@ -228,7 +228,7 @@ padding:25px;
 border-radius:18px;
 border-left:5px solid {color};
 text-align:center;
-height:200px;
+height:220px;
 box-shadow:0 6px 15px rgba(0,0,0,0.25);
 ">
 
