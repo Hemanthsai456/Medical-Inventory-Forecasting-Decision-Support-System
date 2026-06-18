@@ -15,7 +15,7 @@ with c1:
 
 with c2:
     st.metric(
-        ""Key Driver"",
+        "Key Driver",
         "PurTot"
     )
 
