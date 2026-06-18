@@ -18,12 +18,9 @@ st.set_page_config(
 
 @st.cache_data
 def load_data():
-    product_df = pd.read_csv(
-        "cleaned datasets/Product_Level_Data_Final.csv"
+    return pd.read_pickle(
+        "models/dashboard_data.pkl"
     )
-
-    return product_df
-
 
 product_df = load_data()
 
