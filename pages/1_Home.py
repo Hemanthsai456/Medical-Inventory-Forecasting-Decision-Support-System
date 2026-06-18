@@ -1,22 +1,27 @@
 import streamlit as st
 
-st.title("💊 Medical Inventory Sales Prediction & Segmentation")
+st.title("💊 Medical Inventory Sales Prediction")
 
 st.markdown("""
 ### Project Overview
 
-This project predicts total sales (SaleTot) for medical inventory items using Machine Learning.
+Medical Inventory Sales Prediction is an end-to-end Machine Learning application designed to forecast medical inventory sales and support inventory management decisions.
+
+The project combines predictive analytics, interactive dashboards, explainable AI, and inventory segmentation to transform raw inventory data into actionable business insights.
 
 ### Problem Statement
 
-Medical stores often struggle with inventory planning and sales forecasting.
-Overstocking increases holding costs while understocking leads to missed sales opportunities.
+Medical inventory management is challenging due to demand uncertainty, overstocking risks, and stockout situations.
 
-This project uses historical inventory and purchase information to predict future sales.
+- Overstocking increases inventory carrying costs.
+- Understocking can lead to missed sales opportunities.
+- Manual forecasting often lacks accuracy and consistency.
+
+This project uses historical inventory and procurement data to predict future sales demand and support data-driven inventory planning.
 
 ### Target Variable
 
-**SaleTot**
+**SaleTot (Total Sales Quantity)**
 
 ### Final Model
 
@@ -26,6 +31,38 @@ This project uses historical inventory and purchase information to predict futur
 
 **R² Score = 0.798**
 
+### Application Features
+
+#### 📊 Interactive Analytics Dashboard
+
+- Dynamic filtering
+- Executive KPI monitoring
+- Interactive Plotly visualizations
+- Inventory risk analysis
+- Business insights & executive summaries
+
+#### 🔮 Sales Prediction Engine
+
+- Gradient Boosting Regressor
+- Demand classification
+- Inventory risk assessment
+- Business recommendation engine
+- Inventory turnover analysis
+
+#### 🧠 Explainable AI
+
+- SHAP Summary Analysis
+- SHAP Waterfall Analysis
+- Feature Importance Ranking
+- Business-focused model interpretation
+
+#### 📦 Inventory Segmentation
+
+- K-Means Clustering
+- Cluster Profiling
+- Inventory Categorization
+- Inventory Strategy Insights
+
 ### Technologies Used
 
 - Python
@@ -34,6 +71,7 @@ This project uses historical inventory and purchase information to predict futur
 - Scikit-Learn
 - XGBoost
 - SHAP
+- Plotly
 - K-Means Clustering
 - Streamlit
 
@@ -42,5 +80,7 @@ This project uses historical inventory and purchase information to predict futur
 - Better inventory planning
 - Reduced stock wastage
 - Improved procurement decisions
-- Data-driven forecasting
+- Demand forecasting support
+- Inventory risk identification
+- Data-driven decision making
 """)

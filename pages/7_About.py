@@ -9,11 +9,11 @@ st.title("👨‍💻 About This Project")
 st.header("💊 Project Overview")
 
 st.markdown("""
-**Medical Inventory Sales Prediction & Segmentation** is an end-to-end Machine Learning project developed to forecast medical inventory sales using historical inventory and purchase data.
+**Medical Inventory Sales Prediction** is an end-to-end Machine Learning project developed to forecast medical inventory sales using historical inventory and purchase data.
 
-The project combines data analysis, predictive modeling, explainable AI, clustering techniques, and deployment into a complete business-focused solution.
+The project combines predictive modeling, interactive analytics dashboards, explainable AI, inventory segmentation, and deployment into a complete business-focused decision support solution.
 
-The final production model is a **Gradient Boosting Regressor**, selected after extensive experimentation and comparison with multiple machine learning and ensemble models.
+The final production model is a **Gradient Boosting Regressor**, selected after extensive experimentation and comparison across multiple machine learning and ensemble models.
 """)
 
 # ==================================
@@ -40,30 +40,51 @@ st.header("🛠️ Skills Demonstrated")
 
 st.markdown("""
 ### Data Analysis
+
 - Data Cleaning
 - Exploratory Data Analysis (EDA)
 - Data Validation
 - Feature Engineering
+- Data Storytelling
 
 ### Machine Learning
+
 - Regression Modeling
 - Ensemble Learning
 - Hyperparameter Tuning
 - Model Evaluation
 
 ### Explainable AI
+
 - SHAP Explainability
 - Feature Importance Analysis
 - Prediction Interpretation
 
+### Interactive Analytics
+
+- Plotly Dashboards
+- Executive KPI Design
+- Business Insights Generation
+- Interactive Data Exploration
+
+### Business Intelligence
+
+- Inventory Risk Assessment
+- Demand Classification
+- Recommendation Engine Development
+- Decision Support Analytics
+
 ### Unsupervised Learning
+
 - K-Means Clustering
 - Cluster Profiling
 - Inventory Segmentation
 
 ### Deployment
+
 - Model Serialization
 - Streamlit Application Development
+- Interactive Dashboard Development
 - Git & GitHub Version Control
 """)
 
@@ -80,8 +101,8 @@ st.markdown("""
 - Scikit-Learn
 - XGBoost
 - SHAP
+- Plotly
 - Matplotlib
-- Seaborn
 - Streamlit
 - Excel
 - Git
@@ -111,7 +132,11 @@ Model Comparison
         ↓
 SHAP Explainability
         ↓
-K-Means Clustering
+K-Means Segmentation
+        ↓
+Interactive Dashboard Development
+        ↓
+Business Recommendation Engine
         ↓
 Model Deployment
 """)
@@ -123,11 +148,11 @@ Model Deployment
 st.header("👤 Developer")
 
 st.markdown("""
-**Charagundla Hemanth Sai (Ch. Hemanth Sai)**
+**Charagundla Hemanth Sai**
 
-Artificial Intelligence & Data Science Student
+Artificial Intelligence & Data Science
 
-This project was developed as part of a practical machine learning portfolio focused on solving real-world business problems using data-driven approaches.
+This project was developed as part of a professional machine learning portfolio focused on solving real-world inventory management and forecasting challenges using data-driven approaches.
 """)
 
 # ==================================
@@ -151,6 +176,5 @@ https://github.com/Hemanthsai456/Medical-Inventory-Sales-Prediction
 # ==================================
 
 st.success("""
-This project demonstrates the complete machine learning lifecycle:
-from data preparation and analysis to model deployment and business interpretation.
+This project demonstrates the complete machine learning lifecycle—from data preparation and analytics to model deployment, explainability, inventory segmentation, and business decision support.
 """)
