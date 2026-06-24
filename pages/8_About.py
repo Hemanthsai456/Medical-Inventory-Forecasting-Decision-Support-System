@@ -195,7 +195,7 @@ st.markdown("""
 https://www.linkedin.com/in/hemanth-sai-charagundla-4a8659376/
 
 💻 GitHub Project:
-https://github.com/Hemanthsai456/Medical-Inventory-Sales-Prediction
+https://github.com/Hemanthsai456/Medical-Inventory-Forecasting-Decision-Support-System
 """)
 
 # ==================================

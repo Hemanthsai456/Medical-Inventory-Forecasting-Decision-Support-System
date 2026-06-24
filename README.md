@@ -4,11 +4,11 @@
 
 🔗 Streamlit Application:
 
-https://hemanthsai-medical-sales-inventory-prediction.streamlit.app/
+https://hemanthsai-medical-inventory-decision-support.streamlit.app/
 
 🔗 GitHub Repository:
 
-https://github.com/Hemanthsai456/Medical-Inventory-Sales-Prediction
+https://github.com/Hemanthsai456/Medical-Inventory-Forecasting-Decision-Support-System
 
 ---
 
