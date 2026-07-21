@@ -332,7 +332,7 @@ The project is deployed as a multi-page Streamlit application that integrates an
 | Module                           | Purpose                                           |
 | -------------------------------- | ------------------------------------------------- |
 | 🏠 Home                          | Project overview and business context             |
-| 📊 EDA Dashboard                 | Interactive analytics and KPI monitoring          |
+| 📊 Interactive Dashboard                 | Interactive analytics and KPI monitoring          |
 | 🔮 Prediction & Decision Support | Sales forecasting and procurement recommendations |
 | 🤖 Model Comparison              | Performance comparison across 14 ML models        |
 | 🧠 Explainable AI                | SHAP-based model interpretation                   |
