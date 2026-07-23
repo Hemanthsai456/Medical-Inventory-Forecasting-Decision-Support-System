@@ -251,6 +251,23 @@ Model evaluation extended beyond traditional performance metrics to understand *
 * Most large errors occur during rare inventory situations rather than systematic model failures.
 * Residual analysis indicates generally stable model behavior across the majority of observations.
 
+### Outlier Investigation
+
+An outlier investigation was performed on key numerical variables to determine whether statistically extreme observations represented data quality issues or genuine business events.
+
+#### Investigation Process
+
+- Boxplot Analysis
+- IQR-Based Outlier Detection
+- Distribution Analysis
+- Business Context Validation
+
+#### Findings
+
+Although statistical outliers were identified across several inventory variables, they were determined to represent legitimate high-demand inventory scenarios rather than erroneous records.
+
+To preserve real-world inventory behavior and model generalization, these observations were retained in the training data.
+
 📄 **Detailed analysis is available in:**
 `documentation/Error_Analysis_Report.md`
 
@@ -307,7 +324,7 @@ Rather than relying solely on demand forecasts, the segmentation layer provides 
 
 ---
 
-## Inventory Segmentation page
+## 📦 Inventory Segmentation Dashboard
 
 <p align="center">
   <img src="images\inventory_segmentation1.png" width="100%">
@@ -486,6 +503,7 @@ To maintain business confidentiality, the original dataset is not included in th
 * SHAP Explainable AI
 * Feature Importance Analysis
 * Error Analysis & Model Diagnostics
+* Outlier Investigation & Business Validation
 * Demand Group Performance Analysis
 * Residual Analysis & Prediction Error Investigation
 * Demand Classification Framework
@@ -513,6 +531,10 @@ Potential enhancements include:
 * Inventory Optimization Algorithms
 * Forecast Drift Monitoring
 * Automated Inventory Policy Recommendations
+* Root cause Analysis for Extreme forecasts
+* Natural Language Business Summaries
+* Scenario Simulation to evaluate inventory planning
+* What-If Analysis
 
 ---
 
