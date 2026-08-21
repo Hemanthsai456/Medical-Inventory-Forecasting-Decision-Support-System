@@ -526,6 +526,7 @@ Future work may focus on expanding forecasting capability rather than increasing
 
 Potential enhancements include:
 
+* Leakage Identification Resolving
 * Demand Spike Detection
 * Seasonal Demand Forecasting
 * Inventory Optimization Algorithms
