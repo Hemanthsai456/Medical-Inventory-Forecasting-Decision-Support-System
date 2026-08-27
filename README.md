@@ -154,6 +154,20 @@ Exploratory Data Analysis (EDA) was performed to understand inventory behavior, 
 
 ---
 
+### Leakage Prevention
+
+During feature selection, potential target leakage was checked before model training.
+
+* Removed columns that were directly derived from the target variable `SaleTot`.
+* Checked remaining features to ensure they were not calculated using `SaleTot`.
+* `PurTot`, `QohValue`, `OStk`, `Packing`, and `type_*` features were retained as they represent inventory/procurement or product information rather than the target.
+* No future sales values were used as input features.
+* Preprocessing was kept separate from model evaluation to avoid validation/test information influencing training.
+
+This ensured that the final models were trained using features that provide useful information without directly revealing the target.
+
+---
+
 ## 📈 Interactive Analytics Dashboard
 
 The static EDA was transformed into an interactive Streamlit dashboard using Plotly to enable dynamic inventory exploration and executive decision-making.
@@ -526,7 +540,6 @@ Future work may focus on expanding forecasting capability rather than increasing
 
 Potential enhancements include:
 
-* Leakage Identification Resolving
 * Demand Spike Detection
 * Seasonal Demand Forecasting
 * Inventory Optimization Algorithms
