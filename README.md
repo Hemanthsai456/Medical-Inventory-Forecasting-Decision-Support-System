@@ -191,6 +191,7 @@ This project was built on real-world medical inventory data belonging to the dat
 
 ## What's Next
 
+- Deploy Model and Dockerize
 - Seasonal demand forecasting
 - Demand spike detection
 - Forecast drift monitoring
