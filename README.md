@@ -87,6 +87,30 @@ Procurement recommendations
 Deployed as a multi-page Streamlit app
 ```
 
+## Project Structure
+
+```text
+src/
+├── data_processing.py
+├── eda.py
+├── feature_engineering.py
+├── modeling.py
+├── error_analysis.py
+├── explainability.py
+├── clustering.py
+└── model_persistence.py
+
+notebooks/
+├── 01_Medical_Inventory.ipynb
+├── 02_model_development.ipynb
+├── 03_error_analysis.ipynb
+├── 04_explainability.ipynb
+└── 05_clustering.ipynb
+
+app.py + pages/     → Streamlit application
+models/             → Trained model artifacts
+```
+
 ---
 
 ## Technical Deep Dive
@@ -129,7 +153,7 @@ Went beyond aggregate metrics to find *where* the model fails:
 
 - **Demand-group breakdown** — strong performance on low/medium-demand products; error grows on high-demand spikes
 - **Residual analysis** — distribution and scatter checks confirmed generally stable, non-systematic error patterns
-- **Outlier investigation** — used IQR-based detection + business-context validation on extreme values; confirmed they were real high-demand events, not data errors, and kept them in training rather than dropping them (a judgment call documented in the [Error Analysis Report](documentation/Error_Analysis_Report.md))
+- **Outlier investigation** — used IQR-based detection + business-context validation on extreme values; confirmed they were real high-demand events, not data errors, and kept them in training rather than dropping them (a judgment call documented in the [Error Analysis Report](documentation/error_analysis_report.md))
 
 ### Inventory Segmentation (K-Means)
 
@@ -170,7 +194,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Full development workflow (EDA → tuning → SHAP → segmentation) is reproducible from `notebooks/Medical_Inventory.ipynb`.
+Development workflows are organized across the notebooks in `notebooks/`.
 
 ## Data Privacy
 
@@ -185,12 +209,13 @@ This project was built on real-world medical inventory data belonging to the dat
 | Document | Covers |
 |---|---|
 | [Technical Architecture](documentation/Technical_Architecture.md) | System design, ML pipeline, and deployment overview |
-| [Model Performance Report](documentation/Model_Performance_Report.md) | Full comparison of all 14 models and selection rationale |
-| [Error Analysis Report](documentation/Error_Analysis_Report.md) | Residuals, demand-group evaluation, outlier investigation |
+| [Error Analysis Report](documentation/error_analysis_report.md) | Residuals, demand-group evaluation, and outlier investigation |
 | [Business Impact Report](documentation/Business_Impact_Report.md) | Procurement workflows and the decision-support framework |
 
 ## What's Next
 
+- Abalation and Feature Analysis
+- Prediction usage tracking
 - Deploy Model and Dockerize
 - Seasonal demand forecasting
 - Demand spike detection
