@@ -2,13 +2,12 @@ import streamlit as st
 import pandas as pd
 from utils.prediction import predict_sales
 from utils.history import save_prediction
+from src.model_persistence import load_dashboard_data
 from datetime import datetime
 
 @st.cache_data
 def load_reference_data():
-    return pd.read_pickle(
-        "models/dashboard_data.pkl"
-    )
+    return load_dashboard_data("models/dashboard_data.pkl")
 
 reference_df = load_reference_data()
 

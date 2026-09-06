@@ -1,28 +1,28 @@
-import joblib
 import pandas as pd
 import streamlit as st
+from src.model_persistence import (
+    load_model as load_persisted_model,
+    load_model_columns,
+)
+
 
 @st.cache_resource
 def load_model():
-    model = joblib.load("models/medical_inventory_gb_model.pkl")
-    columns = joblib.load("models/model_columns.pkl")
+    model = load_persisted_model("models/medical_inventory_gb_model.pkl")
+    columns = load_model_columns("models/model_columns.pkl")
     return model, columns
+
 
 model, model_columns = load_model()
 
-def predict_sales(
-    packing,
-    ostk,
-    purtot,
-    qohvalue,
-    product_type
-):
+
+def predict_sales(packing, ostk, purtot, qohvalue, product_type):
     # Base input
     input_data = {
         "Packing": packing,
         "OStk": ostk,
         "PurTot": purtot,
-        "QohValue": qohvalue
+        "QohValue": qohvalue,
     }
 
     # Create all type dummy columns
@@ -36,7 +36,7 @@ def predict_sales(
         "type_tab",
         "type_unit",
         "type_vial",
-        "type_x"
+        "type_x",
     ]
 
     for col in type_columns:
