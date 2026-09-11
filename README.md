@@ -228,7 +228,7 @@ This project was built on real-world medical inventory data belonging to the dat
 ---
 
 **Charagundla Hemanth Sai** — AI & Data Science
-[LinkedIn](https://www.linkedin.com/in/hemanth-sai-charagundla-4a8659376/)
+[LinkedIn](https://www.linkedin.com/in/hemanthsai456/)
 
 [GitHub](https://github.com/Hemanthsai456)
 
