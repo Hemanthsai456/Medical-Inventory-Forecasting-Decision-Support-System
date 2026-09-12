@@ -1,10 +1,3 @@
-"""
-Modeling Module for Medical Inventory Forecasting.
-
-Combines individual model training, ensemble models, hyperparameter tuning,
-and model evaluation / comparison metrics.
-"""
-
 from typing import Dict, List, Tuple, Any, Optional
 import matplotlib.pyplot as plt
 import numpy as np
@@ -27,7 +20,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 def scale_features(
     X_train: pd.DataFrame, X_test: pd.DataFrame
 ) -> Tuple[np.ndarray, np.ndarray, StandardScaler]:
-    """Fit StandardScaler on X_train and transform X_train and X_test."""
+    # Fit StandardScaler on X_train and transform X_train and X_test.
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
@@ -37,7 +30,7 @@ def scale_features(
 def train_linear_models(
     X_train_scaled: np.ndarray, y_train: pd.Series
 ) -> Dict[str, Any]:
-    """Train Linear Regression, Ridge, and Lasso models on scaled features."""
+    # Train Linear Regression, Ridge, and Lasso models on scaled features.
     lr = LinearRegression()
     lr.fit(X_train_scaled, y_train)
 
@@ -53,7 +46,7 @@ def train_linear_models(
 def train_base_tree_models(
     X_train: pd.DataFrame, y_train: pd.Series
 ) -> Dict[str, Any]:
-    """Train baseline decision tree and ensemble models."""
+    # Train baseline decision tree and ensemble models.
     dt = DecisionTreeRegressor(random_state=5)
     dt.fit(X_train, y_train)
 
@@ -81,7 +74,7 @@ def train_base_tree_models(
 def tune_random_forest(
     X_train: pd.DataFrame, y_train: pd.Series, cv: int = 5, n_jobs: int = -1
 ) -> GridSearchCV:
-    """Perform hyperparameter tuning for Random Forest Regressor using GridSearchCV."""
+    # Perform hyperparameter tuning for Random Forest Regressor using GridSearchCV.
     param_grid_rf = {
         "n_estimators": [100, 300],
         "max_depth": [3, 5, 10],
@@ -102,7 +95,7 @@ def tune_random_forest(
 def tune_gradient_boosting(
     X_train: pd.DataFrame, y_train: pd.Series, cv: int = 3, n_jobs: int = -1
 ) -> GridSearchCV:
-    """Perform hyperparameter tuning for Gradient Boosting Regressor using GridSearchCV."""
+    # Perform hyperparameter tuning for Gradient Boosting Regressor using GridSearchCV.
     param_grid_gb = {
         "n_estimators": [100, 300],
         "learning_rate": [0.05, 0.1],
@@ -124,7 +117,7 @@ def tune_gradient_boosting(
 def tune_xgboost(
     X_train: pd.DataFrame, y_train: pd.Series, cv: int = 5, n_jobs: int = -1
 ) -> GridSearchCV:
-    """Perform hyperparameter tuning for XGBoost Regressor using GridSearchCV."""
+    # Perform hyperparameter tuning for XGBoost Regressor using GridSearchCV.
     param_grid_xg = {
         "n_estimators": [100, 300],
         "max_depth": [3, 4],
@@ -153,7 +146,7 @@ def train_voting_regressor(
     X_train: Optional[pd.DataFrame] = None,
     y_train: Optional[pd.Series] = None,
 ) -> VotingRegressor:
-    """Train VotingRegressor ensemble with specified base estimators and weights."""
+    # Train VotingRegressor ensemble with specified base estimators and weights.
     voting = VotingRegressor(estimators=estimators, weights=weights)
     if X_train is not None and y_train is not None:
         voting.fit(X_train, y_train)
@@ -166,7 +159,7 @@ def train_stacking_regressor(
     X_train: pd.DataFrame,
     y_train: pd.Series,
 ) -> StackingRegressor:
-    """Train StackingRegressor ensemble with specified base estimators and meta-estimator."""
+    # Train StackingRegressor ensemble with specified base estimators and meta-estimator.
     stacking = StackingRegressor(
         estimators=estimators, final_estimator=final_estimator
     )
@@ -177,7 +170,7 @@ def train_stacking_regressor(
 def evaluate_model(
     y_true: pd.Series, y_pred: np.ndarray, model_name: str = "Model"
 ) -> Dict[str, Any]:
-    """Calculate evaluation metrics (MAE, RMSE, R2) for predictions."""
+    # Calculate evaluation metrics (MAE, RMSE, R2) for predictions.
     mae = mean_absolute_error(y_true, y_pred)
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     r2 = r2_score(y_true, y_pred)
@@ -185,14 +178,14 @@ def evaluate_model(
 
 
 def compare_models(results_list: List[Dict[str, Any]]) -> pd.DataFrame:
-    """Convert list of model evaluation dictionaries to DataFrame."""
+    # Convert list of model evaluation dictionaries to DataFrame
     return pd.DataFrame(results_list)
 
 
 def plot_subplots(
     y_test: pd.Series, y_pred: np.ndarray, model_name: str
 ) -> plt.Figure:
-    """Plot Actual vs Predicted scatter and Residual scatter subplots."""
+    # Plot Actual vs Predicted scatter and Residual scatter subplots.
     residuals = y_test - y_pred
 
     fig, axes = plt.subplots(1, 2, figsize=(10, 4))
@@ -220,7 +213,7 @@ def plot_subplots(
 def plot_model_comparison(
     results_df: pd.DataFrame, title: str = "Model Performance Comparison"
 ) -> plt.Figure:
-    """Plot bar chart comparing model evaluation metrics."""
+    # Plot bar chart comparing model evaluation metrics.
     fig, ax = plt.subplots(figsize=(8, 5))
     df_plot = results_df.set_index("Model")
     df_plot.plot(kind="bar", ax=ax)

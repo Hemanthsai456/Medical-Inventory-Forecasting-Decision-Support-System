@@ -1,10 +1,3 @@
-"""
-Model Persistence Module for Medical Inventory Forecasting.
-
-Provides reusable functions for saving and loading models, feature columns,
-and reference dataset artifacts using repository-portable paths.
-"""
-
 from pathlib import Path
 from typing import Any, List, Optional, Union
 import joblib
@@ -18,7 +11,7 @@ DEFAULT_MODEL_DIR = BASE_DIR / "models"
 def _resolve_path(
     filepath: Optional[Union[str, Path]], default_filename: str
 ) -> Path:
-    """Resolve a given filepath or relative string into a portable Path object."""
+    # Resolve a given filepath or relative string into a portable Path object
     if filepath is None:
         return DEFAULT_MODEL_DIR / default_filename
     path = Path(filepath)
@@ -33,7 +26,7 @@ def _resolve_path(
 def save_model(
     model: Any, filepath: str = "models/medical_inventory_gb_model.pkl"
 ) -> None:
-    """Save trained ML model artifact using joblib."""
+    # Save trained ML model artifact using joblib
     path = _resolve_path(filepath, "medical_inventory_gb_model.pkl")
     path.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, path)
@@ -42,7 +35,7 @@ def save_model(
 def load_model(
     filepath: str = "models/medical_inventory_gb_model.pkl",
 ) -> Any:
-    """Load trained ML model artifact using joblib."""
+    # Load trained ML model artifact using joblib
     path = _resolve_path(filepath, "medical_inventory_gb_model.pkl")
     return joblib.load(path)
 
@@ -50,7 +43,7 @@ def load_model(
 def save_model_columns(
     columns: List[str], filepath: str = "models/model_columns.pkl"
 ) -> None:
-    """Save list of model feature column names."""
+    # Save list of model feature column names
     path = _resolve_path(filepath, "model_columns.pkl")
     path.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(columns, path)
@@ -59,7 +52,7 @@ def save_model_columns(
 def load_model_columns(
     filepath: str = "models/model_columns.pkl",
 ) -> List[str]:
-    """Load list of model feature column names."""
+    # Load list of model feature column names
     path = _resolve_path(filepath, "model_columns.pkl")
     return joblib.load(path)
 
@@ -67,7 +60,7 @@ def load_model_columns(
 def save_dashboard_data(
     df: pd.DataFrame, filepath: str = "models/dashboard_data.pkl"
 ) -> None:
-    """Save reference dataset artifact for dashboard/app consumption."""
+    # Save reference dataset artifact for dashboard/app consumption
     path = _resolve_path(filepath, "dashboard_data.pkl")
     path.parent.mkdir(parents=True, exist_ok=True)
     df.to_pickle(path)
@@ -76,6 +69,6 @@ def save_dashboard_data(
 def load_dashboard_data(
     filepath: str = "models/dashboard_data.pkl",
 ) -> pd.DataFrame:
-    """Load reference dataset artifact for dashboard/app consumption."""
+    # Load reference dataset artifact for dashboard/app consumption
     path = _resolve_path(filepath, "dashboard_data.pkl")
     return pd.read_pickle(path)

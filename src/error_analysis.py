@@ -1,10 +1,3 @@
-"""
-Error Analysis Module for Medical Inventory Forecasting.
-
-Provides functions for evaluating prediction errors, analyzing top error instances,
-and computing performance metrics across demand quantiles.
-"""
-
 from typing import Tuple, Dict, Any
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,7 +9,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 def calculate_prediction_errors(
     X_test: pd.DataFrame, y_test: pd.Series, y_pred: np.ndarray
 ) -> pd.DataFrame:
-    """Construct DataFrame with features, Actual, Predicted, Error, and Absolute_Error."""
+    # Construct DataFrame with features, Actual, Predicted, Error, and Absolute_Error
     error_df = X_test.copy()
     error_df["Actual"] = y_test
     error_df["Predicted"] = y_pred
@@ -26,14 +19,14 @@ def calculate_prediction_errors(
 
 
 def get_top_errors(error_df: pd.DataFrame, top_n: int = 20) -> pd.DataFrame:
-    """Return top N prediction errors."""
+    # Return top N prediction errors
     return error_df.head(top_n)
 
 
 def analyze_demand_group_performance(
     y_test: pd.Series, y_pred: np.ndarray
 ) -> pd.DataFrame:
-    """Calculate MAE, RMSE, and R2 broken down by demand groups (Low, Medium, High)."""
+    # Calculate performance metrics across low, medium, and high demand groups
     q1 = np.percentile(y_test, 25)
     q3 = np.percentile(y_test, 75)
 
@@ -72,7 +65,7 @@ def plot_actual_vs_predicted(
     y_pred: np.ndarray,
     title: str = "Actual vs Predicted Sales",
 ) -> plt.Figure:
-    """Scatter plot of actual vs predicted sales with ideal reference line."""
+    # Scatter plot of actual vs predicted sales with ideal reference line
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.scatter(y_test, y_pred, alpha=0.6)
     ax.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], "r--")
@@ -86,7 +79,7 @@ def plot_actual_vs_predicted(
 def plot_residual_histogram(
     errors: pd.Series, title: str = "Residual Distribution"
 ) -> plt.Figure:
-    """Plot histogram / KDE of prediction residual errors."""
+    # Plot distribution of prediction residuals
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.histplot(errors, bins=30, kde=True, ax=ax)
     ax.set_xlabel("Residual")
@@ -99,7 +92,7 @@ def plot_residual_histogram(
 def plot_demand_group_mae(
     demand_perf: pd.DataFrame, title: str = "MAE by Demand Group"
 ) -> plt.Figure:
-    """Bar chart of MAE per demand group."""
+    # Plot MAE across demand groups
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.bar(demand_perf["Demand_Group"], demand_perf["MAE"])
     ax.set_title(title)
@@ -112,7 +105,7 @@ def plot_demand_group_mae(
 def plot_top_errors(
     top20: pd.DataFrame, title: str = "Top 20 Prediction Errors"
 ) -> plt.Figure:
-    """Bar chart of absolute error values for top prediction errors."""
+    # Plot absolute error values for the largest prediction errors
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.bar(range(len(top20)), top20["Absolute_Error"])
     ax.set_title(title)

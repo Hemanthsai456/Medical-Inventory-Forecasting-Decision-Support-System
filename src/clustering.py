@@ -1,10 +1,3 @@
-"""
-Clustering Module for Medical Inventory Forecasting.
-
-Extracts K-Means clustering data preparation, scaling, Elbow method evaluation,
-cluster fitting, silhouette evaluation, profiling, and visualization.
-"""
-
 from typing import List, Tuple, Dict, Optional, Any
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,7 +12,7 @@ def prepare_clustering_data(
     stock_df: pd.DataFrame,
     feature_cols: Optional[List[str]] = None,
 ) -> pd.DataFrame:
-    """Extract specified numerical features for clustering."""
+    # Extract specified numerical features for clustering
     if feature_cols is None:
         feature_cols = ["OStk", "PurTot", "SaleTot", "QohValue"]
 
@@ -30,7 +23,7 @@ def prepare_clustering_data(
 def scale_clustering_data(
     cluster_df: pd.DataFrame,
 ) -> Tuple[np.ndarray, StandardScaler]:
-    """Fit StandardScaler and transform clustering features."""
+    # Fit StandardScaler and transform clustering features
     scaler = StandardScaler()
     cluster_scaled = scaler.fit_transform(cluster_df)
     return cluster_scaled, scaler
@@ -39,7 +32,7 @@ def scale_clustering_data(
 def compute_elbow_inertia(
     cluster_scaled: np.ndarray, k_range: range = range(1, 10)
 ) -> Tuple[List[int], List[float]]:
-    """Compute inertia across a range of k values for the Elbow Method."""
+    # Compute inertia across a range of k values for the Elbow Method
     inertia = []
     k_list = list(k_range)
     for k in k_list:
@@ -54,7 +47,7 @@ def plot_elbow_method(
     inertia: List[float],
     title: str = "Elbow Method",
 ) -> plt.Figure:
-    """Plot Elbow Method curve for selecting k."""
+    # Plot Elbow Method curve for selecting k
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.plot(k_list, inertia, marker="o")
     ax.set_xlabel("Number of Clusters (k)")
@@ -72,7 +65,7 @@ def fit_kmeans_clusters(
     random_state: int = 5,
     cluster_labels_map: Optional[Dict[int, str]] = None,
 ) -> Tuple[pd.DataFrame, KMeans, float]:
-    """Fit K-Means clustering, assign labels, map cluster names, and compute silhouette score."""
+    # Fit K-Means clustering, assign labels, map cluster names, and compute silhouette score
     if cluster_labels_map is None:
         cluster_labels_map = {
             0: "Low Demand",
@@ -100,7 +93,8 @@ def plot_cluster_scatter(
     hue_col: str = "Cluster_Label",
     title: str = "Product Clusters by Sales and Inventory Value",
 ) -> plt.Figure:
-    """Scatter plot of clustered products."""
+
+    # Scatter plot of clustered products
     fig, ax = plt.subplots(figsize=(7, 5))
     sns.scatterplot(
         data=cluster_df,
