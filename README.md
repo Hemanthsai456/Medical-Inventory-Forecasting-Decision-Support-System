@@ -4,7 +4,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit)](https://hemanthsai-medical-inventory-decision-support.streamlit.app/)
 ![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat-square&logo=python)
-![Scikit--Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange?style=flat-square)
+![Scikit--Learn](https://img.shields.io/badge/Scikit--Learn-1.6.1-orange?style=flat-square)
 ![XGBoost](https://img.shields.io/badge/XGBoost-Boosting-red?style=flat-square)
 ![SHAP](https://img.shields.io/badge/SHAP-Explainable%20AI-purple?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
@@ -61,12 +61,12 @@ These findings fed directly into feature engineering and later became the basis 
 
 ## Tech Stack
 
-`Python` · `Pandas` / `NumPy` · `Scikit-Learn` · `XGBoost` · `SHAP` · `Plotly` / `Matplotlib` / `Seaborn` · `Streamlit` · deployed on **Streamlit Community Cloud**
+`Python` · `Pandas` / `NumPy` · `Scikit-Learn 1.6.1` · `XGBoost` · `SHAP` · `Plotly` / `Matplotlib` / `Seaborn` · `Streamlit` · `Joblib` · deployed on **Streamlit Community Cloud**
 
 ## Workflow
 
 ```
-Raw inventory data
+Medical inventory data
         ↓
 Data cleaning & validation
         ↓
@@ -87,30 +87,6 @@ Procurement recommendations
 Deployed as a multi-page Streamlit app
 ```
 
-## Project Structure
-
-```text
-src/
-├── data_processing.py
-├── eda.py
-├── feature_engineering.py
-├── modeling.py
-├── error_analysis.py
-├── explainability.py
-├── clustering.py
-└── model_persistence.py
-
-notebooks/
-├── 01_Medical_Inventory.ipynb
-├── 02_model_development.ipynb
-├── 03_error_analysis.ipynb
-├── 04_explainability.ipynb
-└── 05_clustering.ipynb
-
-app.py + pages/     → Streamlit application
-models/             → Trained model artifacts
-```
-
 ---
 
 ## Technical Deep Dive
@@ -125,7 +101,7 @@ Trained and tuned three tree-based models plus 11 voting/stacking ensembles, eva
 | Voting ensembles | 5 weighted combinations (e.g. `[1,1,1]`, `[2,5,3]`) of the tree-based models |
 | Stacking ensembles | Linear Regression, Ridge, Lasso, Random Forest, Gradient Boosting, XGBoost as meta-learners |
 
-**Gradient Boosting Regressor won** on all three metrics (R² 0.80, RMSE 9.69, MAE 4.42) and generalized more stably across demand categories than the ensembles — extra model complexity didn't buy extra accuracy here, which is itself a useful finding to report to stakeholders.
+**Gradient Boosting Regressor won** on all three metrics (R² 0.7978, RMSE 9.692, MAE 4.415) and generalized more stably across demand categories than the ensembles — extra model complexity didn't buy extra accuracy here, which is itself a useful finding to report to stakeholders.
 
 ### Explainability (SHAP)
 
@@ -139,13 +115,13 @@ Used SHAP summary and waterfall plots to make the model's reasoning auditable �
 
 Waterfall plots break down individual predictions so a procurement manager can see *why* the model flagged a specific product as high-risk, not just that it did.
 
+![SHAP feature importance](https://github.com/Hemanthsai456/Medical-Inventory-Forecasting-Decision-Support-System/raw/main/images/EDA_images/stock_vs_sales.png)
+
 ### Data Leakage Checks
 
 Before training, features were audited for **target leakage** — dropping/reworking any field that was mathematically derived from or directly encoded the target (e.g. quantities that only exist *after* a sale is recorded). Checked the remaining feature set for high correlation with the target beyond what's explainable by genuine predictive signal, and didn't find other leakage sources once the directly-derived fields were removed.
 
 **Known limitation:** train/test splitting was not done on a temporal or grouped basis, so split-level leakage (e.g. the same product appearing in both sets) hasn't been explicitly ruled out — a fix to make the split time-aware is a natural next step.
-
-![SHAP feature importance](https://github.com/Hemanthsai456/Medical-Inventory-Forecasting-Decision-Support-System/raw/main/images/EDA_images/stock_vs_sales.png)
 
 ### Error Analysis & Diagnostics
 
@@ -184,6 +160,43 @@ Everything above is shipped as one deployed, multi-page app rather than scattere
 | 📉 **Error Analysis** | Residual plots, demand-group error breakdown, outlier investigation |
 | ℹ️ **About** | Workflow and tech stack summary |
 
+## Repository Structure
+
+```text
+Medical-Inventory-Forecasting-Decision-Support-System/
+├── app.py                          # Streamlit entry point
+├── src/                            # Core ML pipeline
+│   ├── data_processing.py
+│   ├── eda.py
+│   ├── feature_engineering.py
+│   ├── modeling.py
+│   ├── error_analysis.py
+│   ├── explainability.py
+│   ├── clustering.py
+│   └── model_persistence.py
+├── pages/                          # Streamlit multi-page app
+│   ├── 1_Home.py
+│   ├── 2_Interactive_Dashboard.py
+│   ├── 3_Prediction.py
+│   ├── 4_Model_Comparison.py
+│   ├── 5_Explainable_AI.py
+│   ├── 6_Inventory_Segmentation.py
+│   ├── 7_Error_Analysis.py
+│   └── 8_About.py
+├── notebooks/                      # End-to-end reproducible workflow
+│   ├── 01_Medical_Inventory.ipynb
+│   ├── 02_model_development.ipynb
+│   ├── 03_error_analysis.ipynb
+│   ├── 04_explainability.ipynb
+│   └── 05_clustering.ipynb
+├── models/                         # Trained model artifacts
+├── documentation/                  # Technical & business reports
+├── images/                         # Dashboard screenshots & plots
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
 ## Run It Locally
 
 ```bash
@@ -214,9 +227,9 @@ This project was built on real-world medical inventory data belonging to the dat
 
 ## What's Next
 
-- Abalation and Feature Analysis
+- Ablation and feature analysis
 - Prediction usage tracking
-- Deploy Model and Dockerize
+- Deploy model and Dockerize
 - Seasonal demand forecasting
 - Demand spike detection
 - Forecast drift monitoring
@@ -228,8 +241,5 @@ This project was built on real-world medical inventory data belonging to the dat
 ---
 
 **Charagundla Hemanth Sai** — AI & Data Science
-[LinkedIn](https://www.linkedin.com/in/hemanthsai456/)
 
-[GitHub](https://github.com/Hemanthsai456)
-
-hemanthsai.ch456@gmail.com
+📧 [hemanthsai.ch456@gmail.com](mailto:hemanthsai.ch456@gmail.com) · 🔗 [LinkedIn](https://www.linkedin.com/in/hemanthsai456/) · 💻 [GitHub](https://github.com/Hemanthsai456)
