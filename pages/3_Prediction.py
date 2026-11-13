@@ -427,23 +427,3 @@ if predict_btn:
             demand_category=demand_level,
             model_version="Gradient Boosting Regressor v1.0",
         )
-
-        st.divider()
-        if sheet_synced:
-            st.success(f"📋 **Prediction History:** Prediction `{pred_id}` recorded and synchronized to Google Sheet.")
-        else:
-            st.caption(f"📋 **Prediction ID:** `{pred_id}` • Recorded to prediction history.")
-
-# =========================================================
-# Prediction History Section
-# =========================================================
-st.divider()
-with st.expander("📜 View Recent Prediction History"):
-    history_df = get_prediction_history(limit=10)
-    if not history_df.empty:
-        st.dataframe(history_df, use_container_width=True, hide_index=True)
-    else:
-        st.info("No prediction history recorded yet. Run a prediction above to log entries.")
-
-    
-
