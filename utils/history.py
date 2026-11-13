@@ -61,16 +61,23 @@ def get_sheet_target() -> Dict[str, Optional[str]]:
     try:
         import streamlit as st
 
-        if hasattr(st, "secrets"):
+        if hasattr(st, "secrets") and st.secrets:
             secrets = st.secrets
-            if "apps_script_url" in secrets:
-                target["apps_script_url"] = secrets["apps_script_url"]
-            elif "prediction_history_url" in secrets:
-                val = secrets["prediction_history_url"]
-                if "script.google.com" in val:
-                    target["apps_script_url"] = val
-                else:
-                    target["sheet_url"] = val
+
+            # Check common variable names
+            for key in ["apps_script_url", "prediction_history_url", "google_sheet_url", "sheet_url", "PREDICTION_HISTORY_URL"]:
+                if key in secrets and secrets[key]:
+                    val = str(secrets[key]).strip()
+                    if "script.google.com" in val:
+                        target["apps_script_url"] = val
+                    elif "docs.google.com/spreadsheets/d/" in val:
+                        target["sheet_url"] = val
+                        match = re.search(r"/spreadsheets/d/([a-zA-Z0-9-_]+)", val)
+                        if match:
+                            target["spreadsheet_id"] = match.group(1)
+                    elif not target["apps_script_url"] and (val.startswith("http://") or val.startswith("https://")):
+                        target["apps_script_url"] = val
+
             if "connections" in secrets and "gsheets" in secrets["connections"]:
                 gsheets_conf = secrets["connections"]["gsheets"]
                 if "spreadsheet" in gsheets_conf:
