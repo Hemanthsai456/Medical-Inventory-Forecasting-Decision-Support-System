@@ -217,3 +217,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Prediction
+prediction_history.txt
+utils/prediction_history.txt

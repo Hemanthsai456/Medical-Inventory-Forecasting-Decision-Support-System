@@ -8,3 +8,5 @@ xgboost
 shap
 joblib
 plotly
+requests
+google-auth

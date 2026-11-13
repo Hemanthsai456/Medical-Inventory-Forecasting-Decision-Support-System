@@ -46,6 +46,7 @@ Benchmarked against Random Forest, XGBoost, and 11 voting/stacking ensembles —
 - **Segments inventory** into fast-moving, low-demand, high-value, and bulk categories via K-Means clustering
 - **Runs error diagnostics** — residual analysis, demand-group breakdowns, and outlier investigation to know where the model is (and isn't) reliable
 - **Recommends procurement actions** — converts forecasts into risk flags and inventory planning decisions, not just numbers
+- **Logs prediction history & audit trail** — automatically synchronizes inputs, forecasts, and timestamps to Google Sheets and local audit storage
 - Ships as a deployed, multi-page **Streamlit** dashboard, not a notebook
 
 ## Key Insights from EDA
@@ -61,7 +62,7 @@ These findings fed directly into feature engineering and later became the basis 
 
 ## Tech Stack
 
-`Python` · `Pandas` / `NumPy` · `Scikit-Learn 1.6.1` · `XGBoost` · `SHAP` · `Plotly` / `Matplotlib` / `Seaborn` · `Streamlit` · `Joblib` · deployed on **Streamlit Community Cloud**
+`Python` · `Pandas` / `NumPy` · `Scikit-Learn 1.6.1` · `XGBoost` · `SHAP` · `Plotly` / `Matplotlib` / `Seaborn` · `Streamlit` · `Joblib` · `Google Sheets API / Apps Script` · `Requests` · deployed on **Streamlit Community Cloud**
 
 ## Workflow
 
@@ -83,6 +84,8 @@ SHAP explainability
 K-Means inventory segmentation
         ↓
 Procurement recommendations
+        ↓
+Prediction-history system (Google Sheet & local audit logging)
         ↓
 Deployed as a multi-page Streamlit app
 ```
@@ -162,6 +165,13 @@ The app doesn't stop at a forecast number — it runs each prediction through a 
 
 ![Prediction & decision support page](https://github.com/Hemanthsai456/Medical-Inventory-Forecasting-Decision-Support-System/raw/main/images/prediction_page.png)
 
+### Prediction-History System (Google Sheets Integration)
+
+To support operational auditing and inventory governance, every forecast submitted through the application is automatically recorded to an external **Google Sheet** (with local CSV fallback):
+- **7 Standardized Attributes:** `Prediction_ID` (unique identifier), `Timestamp`, `Product_ID` (optional tracking code), `Input_Features` (JSON serialization of all inputs), `Predicted_Demand` (model output), `Demand_Category` (`Low`, `Medium`, `High`), and `Model_Version`.
+- **Dual-Sync Pipeline:** Supports direct webhook sync via Google Apps Script Web App endpoints as well as authenticated calls via Google Sheets API v4 using Service Account credentials.
+- **Audit Interface:** Embedded collapsible history viewer inside the Streamlit prediction page to review recent forecasts.
+
 ---
 
 ## Streamlit Application
@@ -172,7 +182,7 @@ Everything above is shipped as one deployed, multi-page app rather than scattere
 |---|---|
 | 🏠 **Home** | Project overview and business framing |
 | 📊 **Interactive Dashboard** | Executive KPIs, dynamic filters, company/product-level trend analysis (Plotly) |
-| 🔮 **Prediction & Decision Support** | Takes inventory inputs → produces a sales forecast → classifies demand → assesses inventory risk → recommends a procurement action |
+| 🔮 **Prediction & Decision Support** | Takes inventory inputs → produces a sales forecast → classifies demand → assesses inventory risk → recommends procurement actions → logs prediction to Google Sheet |
 | 🤖 **Model Comparison** | All 14 trained models compared side by side on R², RMSE, MAE |
 | 🧠 **Explainable AI** | SHAP summary and waterfall plots for global and per-prediction interpretation |
 | 📦 **Inventory Segmentation** | K-Means cluster profiles and the strategy tied to each segment |
@@ -193,6 +203,10 @@ Medical-Inventory-Forecasting-Decision-Support-System/
 │   ├── explainability.py
 │   ├── clustering.py
 │   └── model_persistence.py
+├── utils/                          # Prediction & history logging
+│   ├── prediction.py
+│   ├── history.py
+│   └── prediction_history.txt      # Target Google Sheet / Web App URL (git-ignored)
 ├── pages/                          # Streamlit multi-page app
 │   ├── 1_Home.py
 │   ├── 2_Interactive_Dashboard.py
@@ -247,7 +261,7 @@ This project was built on real-world medical inventory data belonging to the dat
 ## What's Next
 
 - Ablation and feature analysis
-- Prediction usage tracking
+- Real-time alert notifications for high-risk stockouts
 - Deploy model and Dockerize
 - Seasonal demand forecasting
 - Demand spike detection

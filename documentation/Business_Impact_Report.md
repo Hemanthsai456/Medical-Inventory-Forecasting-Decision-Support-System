@@ -214,6 +214,14 @@ Highlights potential inventory risks before they become operational problems.
 
 Provides a repeatable forecasting framework across products and inventory categories.
 
+### Prediction Auditability & History Tracking
+
+Provides an automated historical record of all predictions synchronized directly to Google Sheets:
+
+* **Audit Trail:** Preserves an immutable log of forecasts, inputs, and procurement recommendations with unique Prediction IDs.
+* **Forecast Accountability:** Allows hospital and inventory management to review past purchasing recommendations against actual consumption.
+* **Model Governance:** Supports longitudinal tracking of input values and demand categories to detect demand shifts and distribution changes.
+
 ---
 
 # 8. Integration with Inventory Segmentation

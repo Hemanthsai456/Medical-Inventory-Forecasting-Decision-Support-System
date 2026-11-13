@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
 from utils.prediction import predict_sales
-from utils.history import save_prediction
+from utils.history import save_prediction, get_prediction_history
 from src.model_persistence import load_dashboard_data
 from datetime import datetime
+import uuid
 
 @st.cache_data
 def load_reference_data():
@@ -43,6 +44,7 @@ if "packing" not in st.session_state:
     st.session_state.purtot = None
     st.session_state.qohvalue = None
     st.session_state.product_type = "tab"
+    st.session_state.product_id = ""
 
 if st.button("📋 Load Example Values"):
     st.session_state.packing = 10.0
@@ -50,6 +52,7 @@ if st.button("📋 Load Example Values"):
     st.session_state.purtot = 2000.0
     st.session_state.qohvalue = 1500.0
     st.session_state.product_type = "tab"
+    st.session_state.product_id = "MED-TAB-001"
 
 with st.container(border=True):
 
@@ -91,18 +94,29 @@ with st.container(border=True):
             help="Monetary value of inventory currently available in stock."
         )
 
-    product_type = st.selectbox(
-        "Product Type",
-        [
-            "dose", "gram", "kit", "lot", "ml",
-            "sach", "tab", "unit", "vial", "x"
-        ],
-        index=[
-            "dose", "gram", "kit", "lot", "ml",
-            "sach", "tab", "unit", "vial", "x"
-        ].index(st.session_state.product_type),
-        help="Select the product category."
-    )
+    col_pt1, col_pt2 = st.columns(2)
+
+    with col_pt1:
+        product_type = st.selectbox(
+            "Product Type",
+            [
+                "dose", "gram", "kit", "lot", "ml",
+                "sach", "tab", "unit", "vial", "x"
+            ],
+            index=[
+                "dose", "gram", "kit", "lot", "ml",
+                "sach", "tab", "unit", "vial", "x"
+            ].index(st.session_state.product_type),
+            help="Select the product category."
+        )
+
+    with col_pt2:
+        product_id = st.text_input(
+            "Product ID (Optional)",
+            value=st.session_state.product_id,
+            placeholder="e.g. MED-TAB-001 (Optional)",
+            help="Product identifier for tracking, if available."
+        )
 
     predict_btn = st.button(
         "🔮 Predict Sales",
@@ -118,13 +132,15 @@ if predict_btn:
 
         st.markdown("### 📋 Input Summary")
 
-        col1, col2, col3, col4, col5 = st.columns(5)
+        summary_cols = st.columns(6 if (product_id and product_id.strip()) else 5)
 
-        col1.metric("Packing", f"{packing:,.0f}")
-        col2.metric("Opening Stock", f"{ostk:,.0f}")
-        col3.metric("Purchased Quantity", f"{purtot:,.0f}")
-        col4.metric("Inventory Value", f"{qohvalue:,.0f}")
-        col5.metric("Product Type", product_type)
+        summary_cols[0].metric("Packing", f"{packing:,.0f}")
+        summary_cols[1].metric("Opening Stock", f"{ostk:,.0f}")
+        summary_cols[2].metric("Purchased Quantity", f"{purtot:,.0f}")
+        summary_cols[3].metric("Inventory Value", f"{qohvalue:,.0f}")
+        summary_cols[4].metric("Product Type", product_type)
+        if product_id and product_id.strip():
+            summary_cols[5].metric("Product ID", product_id.strip())
 
         prediction = predict_sales(
             packing,
@@ -388,20 +404,46 @@ if predict_btn:
         """)
 
 
-    # Save prediction record to history
-    save_prediction(
-        {
-            "Timestamp": datetime.now(),
+        # =========================================================
+        # Save prediction record to Prediction-History System
+        # =========================================================
+        pred_id = f"PRED-{datetime.now().strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
+        prod_id_val = product_id.strip() if (product_id and product_id.strip()) else "N/A"
+
+        input_data = {
             "Packing": packing,
             "OStk": ostk,
             "PurTot": purtot,
             "QohValue": qohvalue,
             "ProductType": product_type,
-            "Prediction": round(prediction, 2),
-            "DemandLevel": demand_level,
-            "InventoryRisk": inventory_risk,
-            "Recommendation": recommendation
         }
-    )
+
+        sheet_synced, sync_msg, saved_record = save_prediction(
+            prediction_id=pred_id,
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            product_id=prod_id_val,
+            input_features=input_data,
+            predicted_demand=round(float(prediction), 2),
+            demand_category=demand_level,
+            model_version="Gradient Boosting Regressor v1.0",
+        )
+
+        st.divider()
+        if sheet_synced:
+            st.success(f"📋 **Prediction History:** Prediction `{pred_id}` recorded and synchronized to Google Sheet.")
+        else:
+            st.caption(f"📋 **Prediction ID:** `{pred_id}` • Recorded to prediction history.")
+
+# =========================================================
+# Prediction History Section
+# =========================================================
+st.divider()
+with st.expander("📜 View Recent Prediction History"):
+    history_df = get_prediction_history(limit=10)
+    if not history_df.empty:
+        st.dataframe(history_df, use_container_width=True, hide_index=True)
+    else:
+        st.info("No prediction history recorded yet. Run a prediction above to log entries.")
+
     
 

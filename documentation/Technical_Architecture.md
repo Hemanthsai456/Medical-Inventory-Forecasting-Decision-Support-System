@@ -332,7 +332,53 @@ Generates inventory actions based on:
 
 ---
 
-# 10. Application Architecture
+# 10. Prediction-History & Audit Layer
+
+The application includes an automated prediction-history and audit logging architecture to ensure traceability, compliance, and model monitoring across procurement operations.
+
+### Stored Information Schema
+
+Every prediction event is recorded with 7 standardized attributes:
+
+| Column | Type | Stored Information |
+| :--- | :--- | :--- |
+| **Prediction_ID** | String | Unique prediction identifier (`PRED-YYYYMMDD-XXXXXX`) |
+| **Timestamp** | String | Date and time formatted timestamp (`YYYY-MM-DD HH:MM:SS`) |
+| **Product_ID** | String | Product identifier or tracking code (if available) |
+| **Input_Features** | JSON | Serialized dictionary of all input parameters |
+| **Predicted_Demand** | Float | Model sales forecast output |
+| **Demand_Category** | String | Predicted demand classification (`Low`, `Medium`, `High`) |
+| **Model_Version** | String | Versioned identifier of the production model |
+
+### Dual-Sync Persistence Architecture
+
+```text
+User Prediction Form
+         │
+         ▼
+Model Inference (Gradient Boosting Regressor)
+         │
+         ▼
+7-Attribute Standardized Record
+         │
+         ├──► Local File Persistence (models/prediction_history.csv)
+         │
+         └──► Cloud Synchronization Engine
+                    │
+                    ├──► Google Apps Script Webhook (POST JSON)
+                    │
+                    └──► Google Sheets API v4 (Service Account Token Auth)
+```
+
+### Reliability & Fault Tolerance
+
+* **Non-Blocking Execution:** Network delays or Google Sheets authentication issues never interrupt the user experience or fail predictions.
+* **Local Persistence Fallback:** All records are reliably written to local CSV storage (`models/prediction_history.csv`).
+* **Interactive UI Inspection:** Recent predictions can be directly reviewed via an interactive expander on the Streamlit Prediction page.
+
+---
+
+# 11. Application Architecture
 
 ## Frontend
 
@@ -345,7 +391,7 @@ Provides:
 * Interactive dashboards
 * Model explanations
 * Inventory segmentation views
-* Prediction interface
+* Prediction interface with prediction history
 
 ---
 
@@ -358,6 +404,8 @@ XGBoost
 SHAP
 Pandas
 NumPy
+Requests
+Google-Auth
 ```
 
 Handles:
@@ -366,10 +414,11 @@ Handles:
 * Prediction generation
 * Model execution
 * Business logic
+* Prediction history logging and Google Sheets sync
 
 ---
 
-# 11. Application Modules
+# 12. Application Modules
 
 ### Home
 
@@ -381,7 +430,7 @@ Interactive inventory analytics and KPI monitoring.
 
 ### Prediction Engine
 
-Sales forecasting and recommendation generation.
+Sales forecasting, recommendation generation, and prediction history logging.
 
 ### Model Comparison
 
@@ -401,7 +450,7 @@ Project summary and technical overview.
 
 ---
 
-# 12. Deployment Architecture
+# 13. Deployment Architecture
 
 ```text
 GitHub Repository
@@ -419,10 +468,11 @@ End Users
 * Streamlit Application
 * Git Version Control
 * Cloud Deployment
+* Google Sheets Cloud Sync
 
 ---
 
-# 13. Technology Stack
+# 14. Technology Stack
 
 ## Programming
 
@@ -448,6 +498,13 @@ End Users
 * Seaborn
 * Plotly
 
+## Integration & Cloud Storage
+
+* Google Sheets API
+* Google Apps Script
+* Requests
+* Google-Auth
+
 ## Deployment
 
 * Streamlit
@@ -459,7 +516,7 @@ End Users
 
 ---
 
-# 14. Conclusion
+# 15. Conclusion
 
 The Medical Inventory Sales Prediction & Segmentation System demonstrates a complete machine learning lifecycle, integrating predictive modeling, explainability, inventory segmentation, business logic, and deployment into a unified inventory decision-support platform.
 
