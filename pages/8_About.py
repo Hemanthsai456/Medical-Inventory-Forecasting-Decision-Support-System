@@ -22,15 +22,21 @@ The final production model is a **Gradient Boosting Regressor**, selected after 
 
 st.header("📈 Project Statistics")
 
-col1, col2 = st.columns(2)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
+    st.metric("Final Model", "Gradient Boosting")
     st.metric("Models Evaluated", "14")
-    st.metric("Final R² Score", "0.7978")
 
 with col2:
     st.metric("Target Variable", "SaleTot")
-    st.metric("Final Model", "Gradient Boosting")
+    st.metric("Final R² Score", "0.7978")
+
+with col3:
+    st.metric("RMSE", "9.692")
+
+with col4:
+    st.metric("MAE", "4.415")
 
 # ==================================
 # Skills Demonstrated

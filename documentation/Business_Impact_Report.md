@@ -37,7 +37,7 @@ The solution combines:
 
 ### Demand Forecasting
 
-Predicts expected sales demand using historical inventory and procurement data.
+Predicts expected sales demand using historical inventory and procurement data powered by the production **Gradient Boosting Regressor** model (achieving R² = 0.7978, RMSE = 9.692, MAE = 4.415).
 
 ### Demand Classification
 
@@ -262,7 +262,7 @@ when making final inventory decisions.
 
 # 10. Conclusion
 
-The Medical Inventory Sales Prediction system demonstrates how machine learning can support inventory management by combining demand forecasting, inventory risk assessment, recommendation generation, and inventory segmentation.
+The Medical Inventory Sales Prediction system, powered by the **Gradient Boosting Regressor**, demonstrates how machine learning can support inventory management by combining demand forecasting, inventory risk assessment, recommendation generation, and inventory segmentation.
 
 The solution transforms historical inventory records into actionable operational insights that can assist inventory managers in planning, monitoring, and decision-making activities.
 

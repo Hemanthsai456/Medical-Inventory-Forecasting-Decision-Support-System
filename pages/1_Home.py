@@ -29,7 +29,9 @@ This project uses historical inventory and procurement data to predict future sa
 
 ### Model Performance
 
-**R² Score = 0.798**
+- **R² Score:** 0.7978
+- **RMSE:** 9.692
+- **MAE:** 4.415
 
 ### Application Features
 

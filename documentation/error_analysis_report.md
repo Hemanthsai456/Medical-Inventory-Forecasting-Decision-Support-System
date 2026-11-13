@@ -36,7 +36,7 @@ The model was evaluated using a held-out test dataset and achieved strong predic
 
 ### Actual vs Predicted Analysis
 
-![Actual vs Predicted](..\documentation\error_analysis\actual_vs_predicted.png)
+![Actual vs Predicted](error_analysis/actual_vs_predicted.png)
 
 The Actual vs Predicted plot shows that most observations follow the ideal prediction line, indicating strong overall model performance.
 
@@ -50,15 +50,15 @@ To better understand model behavior, products were segmented into demand groups 
 
 ### Demand Group Performance
 
-| Demand Group  | Count            | MAE              | RMSE |
-| ------------- | ---------------- | ---------------- | ---- |
-| Low Demand    | Replace from CSV | Replace from CSV |      |
-| Medium Demand | Replace from CSV | Replace from CSV |      |
-| High Demand   | Replace from CSV | Replace from CSV |      |
+| Demand Group  | Count | MAE    | RMSE   |
+| ------------- | ----- | ------ | ------ |
+| Low Demand    | 232   | 2.183  | 3.980  |
+| Medium Demand | 101   | 1.646  | 2.714  |
+| High Demand   | 120   | 11.060 | 17.827 |
 
 ### Demand Group Visualization
 
-![Demand Group MAE](..\documentation\error_analysis\demand_group_mae.png)
+![Demand Group MAE](error_analysis/demand_group_mae.png)
 
 ### Findings
 
@@ -77,7 +77,7 @@ To identify failure patterns, the 20 observations with the largest absolute pred
 
 ### Top Error Visualization
 
-![Top 20 Errors](..\documentation\error_analysis\top20_errors_plot.png)
+![Top 20 Errors](error_analysis/top20_errors_plot.png)
 
 ### Key Observations
 
@@ -109,7 +109,7 @@ Residual analysis was performed to evaluate model bias and error distribution.
 
 ## Residual Distribution
 
-![Residual Histogram](..\documentation\error_analysis\residual_histogram.png)
+![Residual Histogram](error_analysis/residual_histogram.png)
 
 ### Findings
 
@@ -121,7 +121,7 @@ Residual analysis was performed to evaluate model bias and error distribution.
 
 ## Residual Scatter Analysis
 
-![Residual Scatter](..\documentation\error_analysis\residual_scatter.png)
+![Residual Scatter](error_analysis/residual_scatter.png)
 
 ### Findings
 

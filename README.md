@@ -101,6 +101,25 @@ Trained and tuned three tree-based models plus 11 voting/stacking ensembles, eva
 | Voting ensembles | 5 weighted combinations (e.g. `[1,1,1]`, `[2,5,3]`) of the tree-based models |
 | Stacking ensembles | Linear Regression, Ridge, Lasso, Random Forest, Gradient Boosting, XGBoost as meta-learners |
 
+#### Complete Benchmark Comparison
+
+| Model | Model Type | R² Score | RMSE | MAE |
+|---|---|---|---|---|
+| 🏆 **Gradient Boosting Regressor (Tuned)** | **Tree-Based (Production Model)** | **0.7978** | **9.692** | **4.415** |
+| Voting Regressor `[1, 4, 2]` | Voting Ensemble | 0.7900 | 9.876 | 4.422 |
+| Voting Regressor `[1, 5, 3]` | Voting Ensemble | 0.7895 | 9.889 | 4.435 |
+| Voting Regressor `[2, 5, 3]` | Voting Ensemble | 0.7882 | 9.920 | 4.420 |
+| Voting Regressor `[1, 3, 2]` | Voting Ensemble | 0.7882 | 9.921 | 4.429 |
+| Voting Regressor `[1, 1, 1]` | Voting Ensemble | 0.7826 | 10.050 | 4.430 |
+| Stacking (Lasso meta) | Stacking Ensemble | 0.7810 | 10.087 | 4.530 |
+| Stacking (Ridge meta) | Stacking Ensemble | 0.7804 | 10.101 | 4.562 |
+| Stacking (Linear Regression meta) | Stacking Ensemble | 0.7804 | 10.101 | 4.562 |
+| XGBoost Regressor (Tuned) | Tree-Based | 0.7684 | 10.373 | 4.595 |
+| Random Forest Regressor (Tuned) | Tree-Based | 0.7513 | 10.750 | 4.559 |
+| Stacking (Random Forest meta) | Stacking Ensemble | 0.7508 | 10.760 | 4.699 |
+| Stacking (Gradient Boosting meta) | Stacking Ensemble | 0.7184 | 11.438 | 4.717 |
+| Stacking (XGBoost meta) | Stacking Ensemble | 0.6448 | 12.846 | 5.101 |
+
 **Gradient Boosting Regressor won** on all three metrics (R² 0.7978, RMSE 9.692, MAE 4.415) and generalized more stably across demand categories than the ensembles — extra model complexity didn't buy extra accuracy here, which is itself a useful finding to report to stakeholders.
 
 ### Explainability (SHAP)

@@ -168,6 +168,25 @@ Total Models Evaluated:
 14 Models
 ```
 
+### Complete Benchmark Comparison
+
+| Model | Model Family | R² Score | RMSE | MAE |
+| :--- | :--- | :--- | :--- | :--- |
+| **Gradient Boosting Regressor (Tuned)** | **Tree-Based (Final Model)** | **0.7978** | **9.692** | **4.415** |
+| Voting [1, 4, 2] | Voting Ensemble | 0.7900 | 9.876 | 4.422 |
+| Voting [1, 5, 3] | Voting Ensemble | 0.7895 | 9.889 | 4.435 |
+| Voting [2, 5, 3] | Voting Ensemble | 0.7882 | 9.920 | 4.420 |
+| Voting [1, 3, 2] | Voting Ensemble | 0.7882 | 9.921 | 4.429 |
+| Voting [1, 1, 1] | Voting Ensemble | 0.7826 | 10.050 | 4.430 |
+| Stacking Lasso | Stacking Ensemble | 0.7810 | 10.087 | 4.530 |
+| Stacking Ridge | Stacking Ensemble | 0.7804 | 10.101 | 4.562 |
+| Stacking LR | Stacking Ensemble | 0.7804 | 10.101 | 4.562 |
+| XGBoost Regressor (Tuned) | Tree-Based | 0.7684 | 10.373 | 4.595 |
+| Random Forest Regressor (Tuned) | Tree-Based | 0.7513 | 10.750 | 4.559 |
+| Stacking RF | Stacking Ensemble | 0.7508 | 10.760 | 4.699 |
+| Stacking GBR | Stacking Ensemble | 0.7184 | 11.438 | 4.717 |
+| Stacking XGB | Stacking Ensemble | 0.6448 | 12.846 | 5.101 |
+
 ---
 
 # 6. Final Production Model
@@ -247,6 +266,12 @@ Optimal Clusters:
 
 ```text
 K = 4
+```
+
+### Cluster Validation
+
+```text
+Silhouette Score = 0.7028
 ```
 
 ### Cluster Profiles

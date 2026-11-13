@@ -199,7 +199,7 @@ if predict_btn:
         )
 
         st.caption(
-            "Model: Gradient Boosting Regressor | R² = 0.798 | MAE = 4.415"
+            "Model: Gradient Boosting Regressor | R² = 0.7978 | RMSE = 9.692 | MAE = 4.415"
         )
 
         st.markdown("### 🎯 Business Recommendation")
